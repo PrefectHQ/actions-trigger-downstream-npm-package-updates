@@ -1,0 +1,32 @@
+---
+name: actions-trigger-downstream-npm-package-update
+description: |
+  Trigger downstream NPM update workflows for UI components based on the latest version of the upstream package
+inputs:
+  REPO_ACTION_RW_TOKEN:
+    description: The Actions Read/Write Github token associated w/ the downstream repository to allow triggering of the workflow run.
+    required: true
+  DOWNSTREAM_REPO_NAME:
+    description: The name of the repository to trigger the NPM package update workfows.
+    required: true
+runs:
+  using: composite
+  steps:
+    # - name: Trigger ${{ inputs.DOWNSTREAM_REPO_NAME }} NPM Package Update
+    #   if: ${{ steps.publish.outputs.type }}
+    #   env:
+    #     GITHUB_TOKEN: ${{ inputs.REPO_ACTION_RW_TOKEN }}
+    #     tag: ${{ steps.publish.outputs.version }}
+    #   run: |
+    #     gh workflow run npm_update_latest_prefect.yaml \
+    #         --repo=prefecthq/${{ inputs.DOWNSTREAM_REPO_NAME }} \
+    #         --ref=main \
+    #         -f package_name="$(echo $GITHUB_REPOSITORY | tr '[:upper:]' '[:lower:]')" \
+    #         -f package_version="$tag"
+    #   shell: bash
+    - name: Test Downstream workflow
+      run: |
+        echo "Testing downstream workflow"
+        echo "Downstream Repo: ${{ inputs.DOWNSTREAM_REPO_NAME }}"
+        echo "Downstream Repo Token: ${{ inputs.REPO_ACTION_RW_TOKEN }}"
+      shell: bash
