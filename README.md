@@ -5,6 +5,7 @@ Generalized job used to optionally trigger downstream workflows for UI component
 | Env Var/Secret | Desription | Required |
 |-------|------------|----------|
 | DOWNSTREAM_REPO_NAME | Name of the repo to run the update GHA workflow | true |
+| RELEASE_TAG | Release tag coming from the output of the release-ui-components job | true |
 | REPO_ACTION_RW_TOKEN | Secret/Env Var containing the Github API key to trigger downstream jobs | true |
 
 ## Usage
