@@ -25,9 +25,10 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN_SUPER_SECRET }}
 
       - uses: prefecthq/actions-trigger-downstream-npm-package-updates@main
-        id: update_nebula_ui
+        id: update-downstream-nebula-ui-repo
         if: ${{ steps.release-ui-components.publish.outputs.type }}
         with:
-          REPO_ACTION_RW_TOKEN: ${{ secrets.NEBULA_UI_ACTIONS_RW }}
           DOWNSTREAM_REPO_NAME: nebula-ui
+          GITHUB_TOKEN: ${{ secrets.NEBULA_UI_ACTIONS_RW }}
+          RELEASE_TAG: ${{ steps.release-ui-components.publish.outputs.version}}
 ```
