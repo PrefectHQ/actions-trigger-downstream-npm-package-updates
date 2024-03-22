@@ -12,21 +12,15 @@ inputs:
 runs:
   using: composite
   steps:
-    # - name: Trigger ${{ inputs.DOWNSTREAM_REPO_NAME }} NPM Package Update
-    #   if: ${{ steps.publish.outputs.type }}
-    #   env:
-    #     GITHUB_TOKEN: ${{ inputs.REPO_ACTION_RW_TOKEN }}
-    #     tag: ${{ steps.publish.outputs.version }}
-    #   run: |
-    #     gh workflow run npm_update_latest_prefect.yaml \
-    #         --repo=prefecthq/${{ inputs.DOWNSTREAM_REPO_NAME }} \
-    #         --ref=main \
-    #         -f package_name="$(echo $GITHUB_REPOSITORY | tr '[:upper:]' '[:lower:]')" \
-    #         -f package_version="$tag"
-    #   shell: bash
-    - name: Test Downstream workflow
+    - name: Trigger ${{ inputs.DOWNSTREAM_REPO_NAME }} NPM Package Update
+      if: ${{ steps.publish.outputs.type }}
+      env:
+        GITHUB_TOKEN: ${{ inputs.REPO_ACTION_RW_TOKEN }}
+        tag: ${{ steps.publish.outputs.version }}
       run: |
-        echo "Testing downstream workflow"
-        echo "Downstream Repo: ${{ inputs.DOWNSTREAM_REPO_NAME }}"
-        echo "Downstream Repo Token: ${{ inputs.REPO_ACTION_RW_TOKEN }}"
+        gh workflow run npm_update_latest_prefect.yaml \
+            --repo=prefecthq/${{ inputs.DOWNSTREAM_REPO_NAME }} \
+            --ref=main \
+            -f package_name="$(echo $GITHUB_REPOSITORY | tr '[:upper:]' '[:lower:]')" \
+            -f package_version="$tag"
       shell: bash
