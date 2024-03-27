@@ -16,7 +16,6 @@ runs:
   using: composite
   steps:
     - name: Trigger ${{ inputs.DOWNSTREAM_REPO_NAME }} NPM Package Update
-      if: ${{ steps.publish.outputs.type }}
       env:
         GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
         tag: ${{ inputs.RELEASE_TAG }}
